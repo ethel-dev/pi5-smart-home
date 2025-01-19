@@ -4,7 +4,7 @@ In the past few months, I have been tinkering around with creating a smart home.
 
 This has been a very interesting homelab project that added a lot of tech joy to my life. I'm not trying to sell people on my solution, but I'd like to provide my own experiences and compile some of the solid resources I used throughout this process, in hopes that it helps others in approaching their own solutions. Also, I just really wanted to yap about this topic to my heart's content. "Into the void!"
 
-The solution that I ended up on uses a **Raspberry Pi 5** as a smart home hub, running **Home Assistant**, **Scrypted**, **Homebridge** and other utilities through **Docker** and directly through system packages. I use **OpenVPN** and **SSH** to provide ***secure remote access***, as well as **HomeKit/iCloud** *(via a HomePod Mini)* and the **cloud proxy offerings** from Scrypted and Home Assistant.
+The solution that I ended up on uses a **Raspberry Pi 5** as a smart home hub, running **Raspberry Pi OS** (Raspbian), with **Home Assistant**, **Scrypted**, **Homebridge** and other utilities through **Docker** and directly through system packages. I use **OpenVPN** and **SSH** to provide ***secure remote access***, as well as **HomeKit/iCloud** *(via a HomePod Mini)* and the **cloud proxy offerings** from Scrypted and Home Assistant.
 
 I decided to set up as much of my smart home through the **Matter** and **Thread** protocols where possible, for easy integration with Home Assistant and HomeKit. For general smart home gadgets like smart plugs and smart bulbs where it was still economically attainable for me I bought Matter compatible variants. But in many cases, Matter-enabled products in the categories I wanted were not economically attainable, which is where services like Homebridge, Home Assistant, Scrypted... etc... that I listed above come in clutch.
 
@@ -17,7 +17,7 @@ This repository is organized into Markdown files with descriptive titles based o
 My smart home consists of the following components:
 
 ### Hardware
-  - **A Raspberry Pi 5, 4GB of RAM** (~$70)
+  - **Raspberry Pi 5, 4GB of RAM** (~$70)
     - The Raspberry Pi is used as a smart hub which is primarily intended to connect all the pieces of the smart home together. It runs locally managed services which allow one to use their smart home without relying too much on cloud services, Google, Alexa, etc. In my case, it also records my cameras from the network to the hard drive 24/7. With a smaller number of cameras, or just when running smart home software such as Home Assistant or Homebridge, it can be a perfect, high-efficiency and cheap computer to build a locally managed smart home around.
     - I use all of these accessories/components to assist the Pi
       - 128 GB MicroSD card
@@ -25,6 +25,7 @@ My smart home consists of the following components:
       - Vilros Raspberry Pi 5 Active Cooler with acrylic top and bottom plates
       - Argon 27W USB-C GaN Raspberry Pi 5 power supply
       - Raspberry Pi DAC Pro
+    - See the [associated guide](RASPBERRY-PI.md) for general usage information in this application.
   - **Apple HomePod Mini** (~$100)
     - For better or for worse, I am an Apple ecosystem user™ and I wanted my smart home to be as functional as possible using HomeKit and Apple services. I tolerate and even enjoy HomeKit and there is really no other way to get a good HomeKit experience than buying an Apple Smart Home Hub. This is totally optional but I will include some information on it throughout these guides.
   - **TP-Link Tapo RGBW Matter-Compatible Smart Light Bulbs *(6pc)*** (~$15/2pc)
@@ -47,7 +48,7 @@ My smart home consists of the following components:
 
 ### Software
 - Via Docker containers on the Raspberry Pi...
-  - **Scrypted** with NVR and HomeKit plugins
+  - [**Scrypted**](CAMERAS-AND-NVR.md) with NVR and HomeKit plugins
     - Scrypted NVR capability is either $15/3mo, or $40/yr.
   - **Home Assistant**
   - **Homebridge**

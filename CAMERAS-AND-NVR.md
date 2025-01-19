@@ -66,3 +66,7 @@ It is recommended by the Scrypted devs to use Proxmox VE instead of Docker to ru
 One should be able to use Proxmox VE with the Raspberry Pi instead of Docker and will probably have a better experience, at least, like I said, according to the Scrypted devs. It seems like there may also be issues with Scrypted interacting with Homebridge or other applications that need host networking services when run inside Docker containers (in my case, I run Homebridge as a system package since it is the lightest and easiest thing to run in that fashion and have had no issues at all).
 
 Nonetheless, I went with Docker as there is [still support for the Coral TPU](https://docs.scrypted.app/detection/object-detection.html#tensorflow-lite) if I get one in the future. Plus, I am just more familiar with Docker as a platform / not particularly bothered by the drawbacks of using it with Scrypted.
+
+### Setting up your cameras and smart home integrations with Scrypted
+
+> To be continued...

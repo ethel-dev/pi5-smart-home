@@ -4,7 +4,7 @@ This specific guide is not about setting up your Raspberry Pi to be a complete s
 
 For the purposes of this guide and flexibility, I just recommend installing Raspberry Pi OS (Raspbian). This will give you a full Debian-like Linux environment to do basically whatever you want with. There are other options, such as [Home Assistant OS](https://www.home-assistant.io/installation/raspberrypi) and [Homebridge](https://github.com/homebridge/homebridge-raspbian-image/wiki/Getting-Started), that you can flash easily to a Pi, but I avoided these as they limit the flexibility of using the device. In order to install these services anyways, one can use Docker on top of the OS and see similar results (see Docker article/other articles as they are written for information on using Docker to install and manage these services).
 
-However, it is also worth noting that Home Assistant will have the best experience if you flash it directly to the Pi via Home Assistant OS. But it is still a great experience through the Docker container. I want to do a lot of stuff for my home with this single Pi 5, so I am sticking with the pure Linux tap.
+However, it is also worth noting that Home Assistant will have the best experience if you flash it directly to the Pi via Home Assistant OS. But it is still a great experience through the Docker container. I want to do a lot of stuff for my home with this single Pi 5, so I am sticking with the pure Linux tap. This guide reflects the choice of Raspberry Pi OS.
 
 ## Get The Pi 5...
 
@@ -18,7 +18,7 @@ The Pi 5 also has support for more M.2/PCIe cards such as the Coral TPU M.2 AI A
 
 ## Raspberry Pi Imager
 
-Regardless of which OS you choose to flash, it is easiest to flash and set up a Raspberry Pi with the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) software. There is a pretty good [official step-by-step guide](https://www.raspberrypi.com/documentation/computers/getting-started.html#raspberry-pi-imager) to using the Imager software located in the [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/). As stated above, I installed [**Raspberry Pi OS**](https://www.raspberrypi.com/software/) onto my Raspberry Pi, which is essentially a Debian Linux port.
+Regardless of which OS you choose to flash, it is easiest to flash and set up a Raspberry Pi with the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) software. There is a pretty good [official step-by-step guide](https://www.raspberrypi.com/documentation/computers/getting-started.html#raspberry-pi-imager) to using the Imager software located in the [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/). As stated above, I installed [**Raspberry Pi OS**](https://www.raspberrypi.com/software/) onto my Raspberry Pi, which is essentially a Debian Linux port. 
 
 For the purposes of this guide, I will not go into extreme depth, but the important things are as follows:
 
@@ -26,7 +26,7 @@ For the purposes of this guide, I will not go into extreme depth, but the import
 2. Be sure to set up a user account and enable SSH under services. You should use an RSA key or some kind of public-key authorization for SSH. **It is strongly advised by me and all other security conscious people not to use password authentication for SSH.** If you do not already have a private-public key pair, you can use the "Run SSH-Keygen" button. The important thing is that you have the corresponding private key in the clients' SSH agent, which should happen automatically using the Imager tool. The public key will be stored on the Raspberry Pi allowing any client which has the private key to securely log into the Pi's shell and operate it via commands. ![SSH settings in Raspberry Pi imager](https://www.raspberrypi.com/documentation/computers/images/imager/os-customisation-services.png?hash=bbc8c0ff2f1eb7207d43180d7694c399)
 3. Set a memorable hostname (you will use this to connect, as well as whatever local IP your router assigns to it), and refrain from giving it access to your wireless network. You should probably use Ethernet when making a Raspberry Pi into a smart hub. If it is impossible to use Ethernet (it shouldn't be), then you can use wireless (there is nothing inherently unusable about it per se), but keep in mind smart home operation may/will be a lot less stable (and have more latency).
 
-Once you have configured the OS and the related settings, all you need to do is go ahead and click through, flash the firmware to the MicroSD card, and eject it when done then pop it into the Raspberry Pi.
+Once you have configured the OS and the related settings, all you need to do is go ahead and click through, flash the operating system to the MicroSD card, and eject it when done then pop it into the Raspberry Pi.
 
 ## Accessories/Hardware
 
@@ -37,4 +37,30 @@ I also purchased an external power brick from Argon that uses GaN for ~$12, whic
 There are many so-called "hats" for Raspberry Pi 5 that can extend the functionality of the board and provide you with more I/O and features. These hats can give you M.2 drive capability, allow you to add a Coral TPU (for AI acceleration), an audio DAC, etc. With the basic Vilros test-bench style open "plate-case" you can pretty much mount all the hats and still put the plates back on, but it might be best for you to buy a case that includes some of the I/O / hat functionality you want built-in for a slicker integration. Argon sells some great cases with M.2 slots and beefy active cooling / better I/O built in, but they come at a somewhat significant premium over other solutions and you trade your flexibility for ease of integration.
 
 ## Setting up Raspberry Pi OS (Raspbian)
+
+### Using SSH
+
+SSH is an essential tool in your toolbox for managing your Raspberry Pi smart hub. It allows you to access the terminal of the Raspberry Pi from other computers on your local network (and remotely, see the guide on remote access later...) and run commands on your Raspberry Pi without having to physically plug in a keyboard, mouse, and monitor. You will have to – gasp! – use the command line to do anything substantial I will outline in this guide. But have no fear, it is really a lot simpler than one may think at first, and I will do my best to give a pertinent crash course here.
+
+> To be continued...
+
+### Turn off the lights!
+
+If you'd like to disable the (potentially extremely disruptive and annoying) blinking lights on your Raspberry Pi 5, it is possible to do so by editing a firmware config file found at `/boot/firmware/config.txt` (if you are running Raspberry Pi OS). You will need to run a text editor with sudo/root access to edit this file. For a somewhat simple approach, you could run the command `sudo nano /boot/firmware/config.txt` to edit the file from your Raspberry Pi's terminal with the GNU `nano` text editor.
+
+A good guide on this is written by Don at [dky.io](https://dky.io/posts/how-to-disable-the-status-leds-on-a-raspberry-pi-5/). It basically boils down to adding the following lines to the `config.txt` file:
+
+```
+dtparam=pwr_led_trigger=default-on
+dtparam=pwr_led_activelow=off
+dtparam=act_led_trigger=none
+dtparam=act_led_activelow=off
+dtparam=eth_led0=4
+dtparam=eth_led1=4
+```
+
+If you just want to turn off the ethernet lights, or just the power light, etc, just only include the lines for those specific cases. You don't have to copy all of these options over. In my case, I just turned off the ethernet lights and kept the power LED active (so, I only copied over the last two lines pertaining to each `eth_led`).
+
+---
+
 > To be continued...
