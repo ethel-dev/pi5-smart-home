@@ -1,6 +1,21 @@
 # Cameras and Network Video Recorder (NVR)
 
-## Thingino Open Source RTSP Firmware
+<!-- vscode-markdown-toc -->
+* 1. [Thingino Open Source RTSP Firmware](#ThinginoOpenSourceRTSPFirmware)
+* 2. [Scrypted NVR (Network Video Recording) and Smart Home Integration](#ScryptedNVRNetworkVideoRecordingandSmartHomeIntegration)
+	* 2.1. [External Storage for Recordings](#ExternalStorageforRecordings)
+		* 2.1.1. [Setting up external storage in your Scrypted Docker container after installation](#SettingupexternalstorageinyourScryptedDockercontainerafterinstallation)
+	* 2.2. [Installing Scrypted with Docker to your Raspberry Pi](#InstallingScryptedwithDockertoyourRaspberryPi)
+	* 2.3. [Installing Scrypted with Proxmox VE](#InstallingScryptedwithProxmoxVE)
+	* 2.4. [Setting up your cameras and smart home integrations with Scrypted](#SettingupyourcamerasandsmarthomeintegrationswithScrypted)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='ThinginoOpenSourceRTSPFirmware'></a>Thingino Open Source RTSP Firmware
 
 As a privacy-conscious person, I did not want to use any cloud solution that didn't work from a personally hosted server which I control for my cameras. Because of this, I decided to flash my Wyze Cam 3 cameras with [Thingino](https://thingino.com/) open-source firmware. It does not "phone home" anywhere, and works entirely locally on the devices and within in my home network. 
 
@@ -22,11 +37,13 @@ Another neat screen in `Settings -> Streamer` is the OSD settings, which allow y
 
 Any camera that has firmware that works locally providing your LAN with RTSP streams will work with the following NVR setup process. Many cameras that do not necessarily natively provide RTSP streams can be hooked up over various means to Scrypted, so look into plugins/integrations for prospective camera manufacturers and do your own research on that if needed. It is a good chance that if you already have some kind of cameras in your home, you may be able to liberate their functionality from the cloud via some means.
 
-## Scrypted NVR (Network Video Recording) and Smart Home Integration
+##  2. <a name='ScryptedNVRNetworkVideoRecordingandSmartHomeIntegration'></a>Scrypted NVR (Network Video Recording) and Smart Home Integration
 
-I used [Scrypted](https://www.scrypted.app/), which is a local solution for NVR and smart home camera integration. The NVR portion is a paid subscription, but I found it to be affordable at $15 every 3 months. For this guide, I assume you are already running Raspbian (Raspberry Pi OS) on your Raspberry Pi, which can be flashed onto a MicroSD via the easy to use Raspberry Pi Imager app that you can install on another computer. See my other guide on general Raspberry Pi setup for more details. But this guide uses **Docker Compose**, so truthfully it could probably be done on just about any supported target system running Linux (perhaps with some modifications, YMMV).
+I used [Scrypted](https://www.scrypted.app/), which is a local solution for NVR and smart home camera integration. The NVR portion is a paid subscription, but I found it to be affordable at $15 every 3 months. For this guide, I assume you are already running Raspbian (Raspberry Pi OS) on your Raspberry Pi, which can be flashed onto a MicroSD via the easy to use Raspberry Pi Imager app that you can install on another computer.  See my other guide on [general Raspberry Pi setup](RASPBERRY-PI.md) for more details. 
 
-### External Storage for Recordings
+It's worth mentioning, this guide uses **Docker Compose**, so truthfully it could probably be done on just about any supported target system running Linux (perhaps with some modifications, YMMV).
+
+###  2.1. <a name='ExternalStorageforRecordings'></a>External Storage for Recordings
  
 If you can, it is best to have external storage already set up for the video recording and plugged into/formatted to the [ext4](https://en.wikipedia.org/wiki/Ext4) filesystem ***before installing*** Scrypted for ease of setup. For Scrypted to work, there are different tiers of storage you will need to attach based on the number of cameras you have. By default, it needs enough for at least 3 days of continuous recording.
 
@@ -38,11 +55,11 @@ If you can, it is best to have external storage already set up for the video rec
 
 > source: https://docs.scrypted.app/scrypted-nvr/recording-storage.html
 
-#### Setting up external storage in your Scrypted Docker container after installation
+####  2.1.1. <a name='SettingupexternalstorageinyourScryptedDockercontainerafterinstallation'></a>Setting up external storage in your Scrypted Docker container after installation
 
 If you don't have external storage at the time of installing Scrypted in a Docker container, and are in the process of setting it up later, *you will have to specially reconfigure the Scrypted Docker container to have access to whatever external volume you are using.* Luckily, this is something the Scrypted devs have made rather easy. There is a [great guide](https://docs.scrypted.app/scrypted-nvr/storage/docker.html) on the process of setting up a new volume for Scrypted via Docker provided in the [Scrypted Docs](https://docs.scrypted.app/). See the [`New Disk`](https://docs.scrypted.app/scrypted-nvr/storage/docker.html#new-disk) section in that guide, which will even also format the disk properly for use with Scrypted for you.
 
-### Installing Scrypted with Docker to your Raspberry Pi
+###  2.2. <a name='InstallingScryptedwithDockertoyourRaspberryPi'></a>Installing Scrypted with Docker to your Raspberry Pi
 Once you have RTSP streams rolling on all of your cameras in network, it is possible to set up Scrypted. I used the [`Linux - Docker` setup guide](https://docs.scrypted.app/install/linux-docker.html) for Scrypted. The commands provided at the top of the page are an easy, one-stop place to install Scrypted and Docker (if needed) to your Pi.
 
 ```sh
@@ -59,7 +76,7 @@ rm ~/install-scrypted-docker-compose.sh
 
 Use SSH or just the GUI interface terminal through HDMI or remote desktop and run the commands to have the Pi's shell run the provided script and walk you through installing Scrypted via Docker. If you don't know anything about Docker, maybe check back later for a guide on Docker as it pertains to basic use for this project in this repo.
 
-### Installing Scrypted with Proxmox VE
+###  2.3. <a name='InstallingScryptedwithProxmoxVE'></a>Installing Scrypted with Proxmox VE
 
 It is recommended by the Scrypted devs to use Proxmox VE instead of Docker to run Scrypted, for reasons outlined in [this section of the installation guide](https://docs.scrypted.app/installation.html#proxmox-ve-vs-docker). There is a [guide](https://docs.scrypted.app/install/proxmox-ve.html) here which details the process of setting up Scrypted with Proxmox VE and installing drivers to allow use of the Coral TPU, etc. 
 
@@ -67,6 +84,6 @@ One should be able to use Proxmox VE with the Raspberry Pi instead of Docker and
 
 Nonetheless, I went with Docker as there is [still support for the Coral TPU](https://docs.scrypted.app/detection/object-detection.html#tensorflow-lite) if I get one in the future. Plus, I am just more familiar with Docker as a platform / not particularly bothered by the drawbacks of using it with Scrypted.
 
-### Setting up your cameras and smart home integrations with Scrypted
+###  2.4. <a name='SettingupyourcamerasandsmarthomeintegrationswithScrypted'></a>Setting up your cameras and smart home integrations with Scrypted
 
 > To be continued...

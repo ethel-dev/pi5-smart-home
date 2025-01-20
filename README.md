@@ -1,8 +1,10 @@
 # Raspberry Pi 5 Smart Home
 
-In the past few months, I have been tinkering around with creating a smart home. I had a few goals with this project, which started simply to have the ability to remotely control the lighting in my apartment, but sprawled into all kinds of concerns including locally hosted remote video. 
+In the past few months, I have been tinkering around with creating a smart home. I had a few goals with this project, which started simply to have the ability to remotely control the lighting in my apartment, but sprawled into all kinds of concerns including locally hosted security camera recording and detections.
 
-This has been a very interesting homelab project that added a lot of tech joy to my life. I'm not trying to sell people on my solution, but I'd like to provide my own experiences and compile some of the solid resources I used throughout this process, in hopes that it helps others in approaching their own solutions. Also, I just really wanted to yap about this topic to my heart's content. "Into the void!"
+This has been a very interesting homelab project that has added a lot of tech joy to my life. I'm not trying to sell people on my solution, but I'd like to provide my own experiences and compile some of the solid resources I used throughout this process, in hopes that it helps others in approaching their own solutions. Also, I just really wanted to yap about this topic to my heart's content. "Into the void!"
+
+Ultimately, the goal of this project is to provide a complete resource that would allow one to follow along and set up some awesome locally-managed smart home solutions with some basic technical knowledge, walking you through the steps I went through, guides I used, and ways I dealt with pain points throughout the process.
 
 The solution that I ended up on uses a **Raspberry Pi 5** as a smart home hub, running **Raspberry Pi OS** (Raspbian), with **Home Assistant**, **Scrypted**, **Homebridge** and other utilities through **Docker** and directly through system packages. I use **OpenVPN** and **SSH** to provide ***secure remote access***, as well as **HomeKit/iCloud** *(via a HomePod Mini)* and the **cloud proxy offerings** from Scrypted and Home Assistant.
 
@@ -25,7 +27,7 @@ My smart home consists of the following components:
       - Vilros Raspberry Pi 5 Active Cooler with acrylic top and bottom plates
       - Argon 27W USB-C GaN Raspberry Pi 5 power supply
       - Raspberry Pi DAC Pro
-    - See the [associated guide](RASPBERRY-PI.md) for general usage information in this application.
+    - See the [associated guide](RASPBERRY-PI.md) for information on the general usage of the Raspberry Pi 5 in this project.
   - **Apple HomePod Mini** (~$100)
     - For better or for worse, I am an Apple ecosystem user™ and I wanted my smart home to be as functional as possible using HomeKit and Apple services. I tolerate and even enjoy HomeKit and there is really no other way to get a good HomeKit experience than buying an Apple Smart Home Hub. This is totally optional but I will include some information on it throughout these guides.
   - **TP-Link Tapo RGBW Matter-Compatible Smart Light Bulbs *(6pc)*** (~$15/2pc)
