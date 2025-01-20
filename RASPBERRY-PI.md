@@ -10,8 +10,10 @@
     - [4.1 Using SSH](#41-using-ssh)
       - [4.1.1 SSH Client](#411-ssh-client)
     - [4.2 Raspberry Pi Command Line Basics](#42-raspberry-pi-command-line-basics)
-    - [4.3 Turn off the lights!](#43-turn-off-the-lights)
+    - [4.3 Getting Comfortable With The Command Line](#43-getting-comfortable-with-the-command-line)
+    - [4.4 Turn off the lights!](#44-turn-off-the-lights)
 
+<!-- /TOC -->
 <!-- /TOC -->
 
 This specific guide is not about setting up your Raspberry Pi to be a complete smart hub. Information on that can be found throughout this repo in relevant articles. *This guide is about how to set up your Raspberry Pi to be a working computer in the first place, outlining the early stages and choices that I made in setting up my Pi to be a future smart hub.*
@@ -70,7 +72,7 @@ Once you are logged into your Pi via SSH or using the built-in terminal, you can
 
 Below is a command you can run that will show you the config settings of your Pi. Many of these can be changed in the graphical desktop, but it is honestly easiest to access them through the command line. Use the arrow keys and enter/escape keys to navigate.
 
-```sh
+```bash
 sudo raspi-config
 ```
 
@@ -78,20 +80,20 @@ I recommend looking through some of these settings and seeing if it would be con
 
 Another useful command allows you to reboot the Pi from the command line, making it easy to reboot the Pi remotely. This will close your connection over SSH, so you will have to log back in later.
 
-```sh
+```bash
 sudo reboot now
 ```
 
 One thing to know about Debian Linux based systems in general is that they are reliant on the `apt` package manager. You can install packages and delete them using these commands:
 
-```sh
+```bash
 sudo apt install [package-name]
 sudo apt uninstall [package-name]
 ```
 
 You can modify files on the system and edit text using the `nano` text editor. If you want to use Vim or Vi or Emacs... This section is not for you, go ahead and use those. But for the layperson, it is easiest to use `nano` for basic editing from the Linux terminal.
 
-```sh
+```bash
 # Edit the message of the day as root user (message that shows when you launch the terminal)
 sudo nano /etc/motd
 
@@ -101,7 +103,47 @@ nano text.txt
 
 As a general rule, in the context of shell, when looking at keyboard shortcuts (which show up across the bottom when you open `nano`) the `^` character means to hit the control/ctrl key along with whatever letter after it. So, to exit `nano`, you would use `Ctrl-X`. 
 
-### 4.3 Turn off the lights!
+### 4.3 Getting Comfortable With The Command Line
+
+I wanted to write a section here for people who may be discouraged with using the command line/shell to complete tasks on their computer. The Linux shell opens up a whole new world of possibilities for you in using your computer and will be necessary to follow along.
+
+You don't have to be a super developer to use the command line. It is a rather simple interface and "language" of sorts that relies mostly on keyboard input. For instance, to stop a command while it's in progress, use the keyboard shortcut `Ctrl-C`. To exit an open SSH session / shell, type `exit`. Most commands are descriptively named and allow you to intuitively understand how they work.
+
+The shell allows you to use the functionality of your computer, install apps, run processes, etc... without the in between steps that you'd find while using the graphical interface. You can, instead, usually get right to what you want with a single command.
+
+The Linux shell has a structure that is generally applicable across all commands. The first part of a command defines the command, anything after defines options / input to the command to give it the context to do what you want. Sometimes, certain keywords/characters preceded by a dash denote "flags", which are options that are either on or off in a command's execution.
+
+```bash
+# ls is the command to list files/contents of directory
+# -l is a flag to use a long list format
+# /home/user is the folder to list
+ls -l /home/user
+
+# cd is the command to change directory
+cd ../ # go up a directory
+cd ~ # go back home
+cd ~/.scrypted # go to the scrypted docker compose directory
+```
+
+You can see a helpful description of any command either by adding some variation of `help` or `--help` to the end of it, or by putting the command `man` before it (short for manual). Sometimes, in the terminal, commands like `man` will send you into a scrollable document of sorts. You can use the arrow keys or `hjkl` keys, and usually press the `q` key to exit these views (for quit).
+
+```sh
+# open the man page for sudo
+# q to exit
+man sudo
+```
+
+Some commands will require **root access**. This can be achieved by putting `sudo` before the command as I have before in this guide. It will prompt for your login password. You won't see visual feedback as you type the password. Just type the password then hit enter, and the command will run as the super user/root.
+
+```sh
+# just a few of the commands that will require root
+sudo nano /boot/firmware/config.txt
+sudo apt install [package]
+sudo reboot now
+# anything with privileged access...
+```
+
+### 4.4 Turn off the lights!
 
 If you'd like to disable the (potentially extremely disruptive and annoying) blinking lights on your Raspberry Pi 5, it is possible to do so by editing a firmware config file found at `/boot/firmware/config.txt` (if you are running Raspberry Pi OS). You will need to run a text editor with sudo/root access to edit this file. For a somewhat simple approach, you could run the command `sudo nano /boot/firmware/config.txt` to edit the file from your Raspberry Pi's terminal with the GNU `nano` text editor.
 
