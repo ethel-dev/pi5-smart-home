@@ -9,8 +9,8 @@
   - [4. Setting up Raspberry Pi OS (Raspbian)](#4-setting-up-raspberry-pi-os-raspbian)
     - [4.1 Using SSH](#41-using-ssh)
       - [4.1.1 SSH Client](#411-ssh-client)
-    - [5. Raspberry Pi Command Line Basics](#5-raspberry-pi-command-line-basics)
-    - [6. Turn off the lights!](#6-turn-off-the-lights)
+    - [4.2 Raspberry Pi Command Line Basics](#42-raspberry-pi-command-line-basics)
+    - [4.3 Turn off the lights!](#43-turn-off-the-lights)
 
 <!-- /TOC -->
 
@@ -64,7 +64,7 @@ I have heard great things about MobaXTerm and PuTTY for Windows. I use Visual St
 
 Once you have an SSH client installed and the correct keys configured with your client, you can access the Raspberry Pi's terminal through your local network via `ssh [hostname].local` or `ssh [local ip of pi]`. When you have remote access configured, you would just use that the gateway IP (whatsmyip dot com public IP) or some sort of dynamic DNS location instead.
 
-### 5. Raspberry Pi Command Line Basics
+### 4.2 Raspberry Pi Command Line Basics
 
 Once you are logged into your Pi via SSH or using the built-in terminal, you can begin to execute commands to manage your Raspberry Pi.
 
@@ -101,7 +101,7 @@ nano text.txt
 
 As a general rule, in the context of shell, when looking at keyboard shortcuts (which show up across the bottom when you open `nano`) the `^` character means to hit the control/ctrl key along with whatever letter after it. So, to exit `nano`, you would use `Ctrl-X`. 
 
-### 6. Turn off the lights!
+### 4.3 Turn off the lights!
 
 If you'd like to disable the (potentially extremely disruptive and annoying) blinking lights on your Raspberry Pi 5, it is possible to do so by editing a firmware config file found at `/boot/firmware/config.txt` (if you are running Raspberry Pi OS). You will need to run a text editor with sudo/root access to edit this file. For a somewhat simple approach, you could run the command `sudo nano /boot/firmware/config.txt` to edit the file from your Raspberry Pi's terminal with the GNU `nano` text editor.
 
